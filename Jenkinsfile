@@ -18,6 +18,7 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
                         echo "From dev"
+			sh 'chmod +x /docker/build-dev.sh'
 			sh './docker/build-dev.sh'
                         } else if (env.BRANCH_NAME == 'master') {
                         echo "from master"
