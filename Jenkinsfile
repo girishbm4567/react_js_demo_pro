@@ -22,12 +22,21 @@ pipeline {
 			def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
 			//echo "${image_name}"
 			sh "./docker/build-dev.sh ${image_name}"
+			withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        			sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          			sh "docker push ${image_name}"
+			}    
+			
                         } else if (env.BRANCH_NAME == 'master') {
                         echo "from master"
 			sh 'chmod +x ./docker/build-dev.sh'
-                        def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
+                        def image_name= "girishbm4567/reactjs-demo-production:${env.BUILD_ID}.0"
                         echo "${image_name}"
                         sh "./docker/build-dev.sh ${image_name}"
+			withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+        			sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+          			sh "docker push ${image_name}"
+			}    
                         }
                     }
                 }
