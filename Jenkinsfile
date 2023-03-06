@@ -20,7 +20,7 @@ pipeline {
                         echo "From dev"
 			sh 'chmod +x ./docker/build-dev.sh'
 			echo "${env.BUILD_ID}"
-			sh './docker/build-dev.sh'
+			sh './docker/build-dev.sh "${env.BUILD_ID}"'
                         } else if (env.BRANCH_NAME == 'master') {
                         echo "from master"
                         }
