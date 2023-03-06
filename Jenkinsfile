@@ -25,6 +25,7 @@ pipeline {
 			withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
         			sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           			sh "docker push ${image_name}"
+				echo "Docker image is pushed to girishbm4567/reactjs-demo-development repository"
 			}    
 			
                         } else if (env.BRANCH_NAME == 'master') {
@@ -36,6 +37,7 @@ pipeline {
 			withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
         			sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
           			sh "docker push ${image_name}"
+				echo "Docker image is pushed to girishbm4567/reactjs-demo-production repository"
 			}    
                         }
                     }
