@@ -21,7 +21,7 @@ pipeline {
 			sh 'chmod +x ./docker/build-dev.sh'
 			image_name= "react_app_dev:${env.BUILD_ID}"
 			echo "$image_name"
-			sh 'docker build -t $image_name .'
+			sh 'docker build -t "$image_name" .'
                         } else if (env.BRANCH_NAME == 'master') {
                         echo "from master"
                         }
