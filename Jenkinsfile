@@ -17,13 +17,17 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
-                        echo "From dev"
+                        //echo "From dev"
 			sh 'chmod +x ./docker/build-dev.sh'
-			def image_name= "react_app_dev:${env.BUILD_ID}.0"
-			echo "${image_name}"
+			def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
+			//echo "${image_name}"
 			sh "./docker/build-dev.sh ${image_name}"
                         } else if (env.BRANCH_NAME == 'master') {
                         echo "from master"
+			sh 'chmod +x ./docker/build-dev.sh'
+                        def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
+                        echo "${image_name}"
+                        sh "./docker/build-dev.sh ${image_name}"
                         }
                     }
                 }
