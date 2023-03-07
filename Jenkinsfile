@@ -47,7 +47,7 @@ pipeline {
           			            sh "docker push ${image_name}:latest"
 				            echo "Docker image is pushed to girishbm4567/reactjs-demo-development repository"
 				    }else if (env.BRANCH_NAME == 'master') {
-					    def image_name= "girishbm4567/reactjs-demo-development"
+					    def image_name= "girishbm4567/reactjs-demo-production"
 					    sh "docker push ${image_name}:${env.BUILD_ID}.0"
           			            sh "docker push ${image_name}:latest"
 				            echo "Docker image is pushed to girishbm4567/reactjs-demo-production repository"
