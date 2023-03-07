@@ -1,0 +1,13 @@
+pipeline {
+    agent any
+    
+    stages {
+      stage ("Deploying to Production server") {
+        	steps {
+            	sh 'scp docker/prod/deploy.sh docker/prod/docker-compose.yml ${REMOTE_USER}@${REMOTE_HOST}:~/'
+              sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod +x deploy.sh docker-compose.yml"'
+              sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} ./deploy.sh'
+          }
+      }
+    }
+}
