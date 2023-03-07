@@ -7,13 +7,13 @@ pipeline {
             }
         }
         
-        stage ("Build"){
+        stage ("Building Artifact"){
             steps {
                 sh 'npm run build'
             }
         }
         
-        stage('Deploy') {
+        stage('Building Docker image') {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
@@ -22,11 +22,7 @@ pipeline {
 		            def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
 			    //echo "${image_name}"
 			    sh "./docker/build-dev.sh ${image_name}"
-			    withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-				    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          			    sh "docker push ${image_name}"
-				    echo "Docker image is pushed to girishbm4567/reactjs-demo-development repository"
-			    }
+			    
 			    
 		    } else if (env.BRANCH_NAME == 'master') {
 			    echo "from master"
@@ -34,14 +30,36 @@ pipeline {
                             def image_name= "girishbm4567/reactjs-demo-production:${env.BUILD_ID}.0"
                             echo "${image_name}"
                             sh "./docker/build-dev.sh ${image_name}"
-			    withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-				    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          			    sh "docker push ${image_name}"
-				    echo "Docker image is pushed to girishbm4567/reactjs-demo-production repository"
-			    }
+			   
                         }
                     }
                 }
         }
+	    
+	stage('Pushing Docker image') {
+            steps {
+                script {
+			withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+				    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+				    if (env.BRANCH_NAME == 'dev') {
+					    def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
+          			            sh "docker push ${image_name}"
+				            echo "Docker image is pushed to girishbm4567/reactjs-demo-development repository"
+				    }else if (env.BRANCH_NAME == 'master') {
+					    def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
+					    sh "docker push ${image_name}"
+				            echo "Docker image is pushed to girishbm4567/reactjs-demo-production repository"
+				    }
+				
+			    } 
+		}
+                    
+	    }
+        }
+		    
+	    
+	    
+	
     }
+	
 }
