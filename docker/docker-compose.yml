@@ -1,9 +1,0 @@
-version: '3' #Version of YML file
-
-services:
-  react_app_dev:
-    image: girishbm4567/reactjs-demo-development:latest
-    ports:
-      - "80:80"
-    container_name: react_app_dev
-    restart: always
