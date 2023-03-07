@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'node:14.21.3'
+            args '-p 3000:3000'
+        }
+    }
     stages {
         stage ("Install Dependencies"){
             steps {
@@ -17,16 +22,27 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
-			    //echo "From dev"
-			    sh 'chmod +x ./docker/build-dev.sh'
-		            def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
-			    //echo "${image_name}"
-			    sh "./docker/build-dev.sh ${image_name}"
-			    withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-				    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-          			    sh "docker push ${image_name}"
-				    echo "Docker image is pushed to girishbm4567/reactjs-demo-development repository"
+			    stage ("Building Docker image"){
+				    steps {
+					    //echo "From dev"
+			    		    sh 'chmod +x ./docker/build-dev.sh'
+		                            def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
+			                    //echo "${image_name}"
+			                    sh "./docker/build-dev.sh ${image_name}"
+				    }
 			    }
+			    stage ("Pushing Docker image to DockerHub"){
+				    steps {
+					    withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+						    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+						    sh "docker push ${image_name}"
+						    echo "Docker image is pushed to girishbm4567/reactjs-demo-development repository"
+					    }
+					    
+				    }
+			    }
+					   
+			    
 			    
 		    } else if (env.BRANCH_NAME == 'master') {
 			    echo "from master"
