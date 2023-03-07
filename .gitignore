@@ -1,0 +1,7 @@
+#ignore modules
+node-modules
+
+#ignorefiles
+*.txt
+*.swp
+
