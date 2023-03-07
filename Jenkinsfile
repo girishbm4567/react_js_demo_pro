@@ -20,21 +20,21 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == 'dev') {
 			    stage ("Building Docker image"){
-				    steps {
+				  
 					    //echo "From dev"
 			    		    sh 'chmod +x ./docker/build-dev.sh'
 		                            def image_name= "girishbm4567/reactjs-demo-development:${env.BUILD_ID}.0"
 			                    //echo "${image_name}"
 			                    sh "./docker/build-dev.sh ${image_name}"
-				    }
+				    
 			    }
 			    stage ("Pushing Docker image to DockerHub"){
-				    steps {
+				    
 					    withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
 						    sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
 						    sh "docker push ${image_name}"
 						    echo "Docker image is pushed to girishbm4567/reactjs-demo-development repository"
-					    }
+					  
 					    
 				    }
 			    }
