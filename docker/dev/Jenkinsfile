@@ -4,7 +4,7 @@ pipeline {
     stages {
       stage ("Deploying to Development server") {
         	steps {
-                sshagent(['<SSH credentials ID>']) {
+                sshagent(['my-ssh-key']) {
                     sh """
                         ssh ${REMOTE_USER}@${REMOTE_HOST} 'ls'
                     """
