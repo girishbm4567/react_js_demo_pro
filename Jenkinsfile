@@ -44,6 +44,7 @@ pipeline {
 				    if (env.BRANCH_NAME == 'dev') {
 					    def image_name= "girishbm4567/reactjs-demo-development"
 					    sh "docker push ${image_name}:${env.BUILD_ID}.0"
+					    sh "docker tag ${image_name}:${env.BUILD_ID}.0 ${image_name}:latest"
           			            sh "docker push ${image_name}:latest"
 				            echo "Docker image is pushed to girishbm4567/reactjs-demo-development repository"
 					    
@@ -51,6 +52,7 @@ pipeline {
 				    }else if (env.BRANCH_NAME == 'master') {
 					    def image_name= "girishbm4567/reactjs-demo-production"
 					    sh "docker push ${image_name}:${env.BUILD_ID}.0"
+					    sh "docker tag ${image_name}:${env.BUILD_ID}.0 ${image_name}:latest"
           			            sh "docker push ${image_name}:latest"
 				            echo "Docker image is pushed to girishbm4567/reactjs-demo-production repository"
 				    }
