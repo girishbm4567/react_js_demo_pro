@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sudo docker-compose up -d
+sudo docker-compose -f reactjs-prod-docker-compose.yml up -d
 
