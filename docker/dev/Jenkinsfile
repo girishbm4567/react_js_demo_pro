@@ -15,7 +15,7 @@ pipeline {
                   build job: 'Hhh' , wait: false 
                   emailext body: 'Job master successful', subject: 'Job Success', to: 'girishb.m4567@gmail.com' , attachLog: true, compressLog: true
         
-      )
+      
                   }
               }
       }
