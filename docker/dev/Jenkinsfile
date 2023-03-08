@@ -5,6 +5,8 @@ pipeline {
       stage ("Deploying to Development server") {
         	steps {
                 ssh -i key.pem ${REMOTE_USER}@${REMOTE_HOST} "ls"
+                }
+
             	
           }
       }
