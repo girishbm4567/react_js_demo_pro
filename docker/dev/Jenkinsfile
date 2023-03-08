@@ -1,6 +1,8 @@
 pipeline {
     agent any
-    
+    environment {
+        CURRENT_TAG = ${BUILD_ID}
+        }
     stages {
       stage ("Deploying to Development server") {
         	steps {
