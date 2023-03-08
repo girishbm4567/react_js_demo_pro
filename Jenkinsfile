@@ -55,6 +55,23 @@ pipeline {
 				
 			    } 
 		}
+		    post{
+			    success {
+				    script {
+					    if (env.BRANCH_NAME == 'dev' ){
+						    emailext body: 'Job dev successful', subject: 'Job Success', to: 'girishb.m4567@gmail.com'
+						    build job: 'Hhh', wait: false
+					    } else if (env.BRANCH_NAME == 'master' ){
+
+						    emailext body: 'Job master successful', subject: 'Job Success', to: 'girishb.m4567@gmail.com'
+
+						    build job: 'Hhh' , wait: false 
+
+					    }
+				    }
+			    }
+		    
+				    
                     
 	    }
         }
