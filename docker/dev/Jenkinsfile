@@ -4,10 +4,9 @@ pipeline {
     stages {
       stage ("Deploying to Development server") {
         	steps {
-                ssh -i key.pem ${REMOTE_USER}@${REMOTE_HOST} "ls"
-                }
-
-            	
+            	sh 'scp -i key.pem docker/dev/deploy.sh docker/dev/docker-compose.yml ${REMOTE_USER}@${REMOTE_HOST}:~/'
+              sh 'ssh -i key.pem ${REMOTE_USER}@${REMOTE_HOST} "chmod +x deploy.sh docker-compose.yml"'
+              sh 'ssh -i key.pem ${REMOTE_USER}@${REMOTE_HOST} ./deploy.sh'
           }
       }
     }
