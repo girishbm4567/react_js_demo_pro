@@ -4,10 +4,12 @@ pipeline {
     stages {
       stage ("Deploying to Production server") {
         	steps {
-            	sh 'scp docker/prod/deploy.sh docker/prod/docker-compose.yml ${REMOTE_USER}@${REMOTE_HOST}:~/'
-              sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod +x deploy.sh docker-compose.yml"'
-              sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} ./deploy.sh'
+                sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "sudo docker-compose -f reactjs-prod-docker-compose.yml down"'
+            	sh 'scp docker/prod/deploy.sh docker/prod/reactjs-prod-docker-compose.yml ${REMOTE_USER}@${REMOTE_HOST}:~/'
+                sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod +x deploy.sh reactjs-prod-docker-compose.yml"'
+                sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "./deploy.sh"'
           }
+          
       }
     }
 }
