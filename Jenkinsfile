@@ -66,6 +66,7 @@ pipeline {
 						    emailext body: 'Job master successful', subject: 'Job Success', to: 'girishb.m4567@gmail.com'
 
 						    build job: 'Hhh' , wait: false 
+						    }
 
 					    }
 				    }
