@@ -12,7 +12,7 @@ pipeline {
           }
           post {
               success {
-                  build jod: 'Hhh' , wait: false
+                  build job: 'Hhh' , wait: false
                   }
               }
       }
