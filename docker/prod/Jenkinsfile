@@ -8,6 +8,7 @@ pipeline {
             	sh 'scp docker/prod/deploy.sh docker/prod/reactjs-prod-docker-compose.yml ${REMOTE_USER}@${REMOTE_HOST}:~/'
                 sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "chmod +x deploy.sh reactjs-prod-docker-compose.yml"'
                 sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "./deploy.sh"'
+                echo "Application Deployed on Production server and check using url: http://${REMOTE_HOST}:80"
           }
           
       }
