@@ -11,7 +11,7 @@ pipeline {
           }
           post {
               success {
-                  input message: 'Do you want to Deploy application in Dev env? (Click "Proceed" to continue)'
+                  input message: 'Do you want to Deploy application in Development Environment? (Click "Proceed" to continue)'
                   build job: 'Deploy_reactjs_app_to_Dev_env' , wait: false
                   
                   //emailext body: 'Job master successful', subject: 'Job Success', to: 'girish.b.m4567@gmail.com' , attachLog: false
