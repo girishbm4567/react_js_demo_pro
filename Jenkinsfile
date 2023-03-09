@@ -70,12 +70,12 @@ pipeline {
 					    //emailext body: 'Job dev successful', subject: 'Job Success', to: 'girishb.m4567@gmail.com'
 					    input message: 'Do you want to Deploy application in Development environment? (Click "Proceed" to continue)'
 					    build job: 'Deploy_reactjs_app_to_Dev_env', wait: false
-					    echo "Deploying Application to Development server."
+					    echo "Deploying Application to Development server"
 				    } else if (env.BRANCH_NAME == 'master' ){
 					    //emailext body: 'Job master successful', subject: 'Job Success', to: 'girishb.m4567@gmail.com'
 					    input message: 'Do you want to Deploy application in Production environment? (Click "Proceed" to continue)'
 					    build job: 'Deploy_reactjs_app_to_Prod_env' , wait: false
-					    echo "Deploying Application to Production server."
+					    echo "Deploying Application to Production server"
 
 				    }
 			    }
