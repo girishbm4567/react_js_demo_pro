@@ -10,6 +10,7 @@ pipeline {
                 sh 'ssh ${REMOTE_USER}@${REMOTE_HOST} "./deploy.sh"'
                 echo "Application Deployed on Development server and check using url: http://${REMOTE_HOST}:80"
           }
+       
           
           
       }
