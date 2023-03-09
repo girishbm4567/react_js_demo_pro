@@ -5,5 +5,5 @@ services:
     image: girishbm4567/reactjs-demo-development:latest
     ports:
       - "80:80"
-    container_name: react_app_dev
+    container_name: react_app
     restart: always

@@ -75,7 +75,11 @@ pipeline {
 					    //emailext body: 'Job master successful', subject: 'Job Success', to: 'girishb.m4567@gmail.com'
 					    input message: 'Do you want to Deploy application in Production environment? (Click "Proceed" to continue)'
 					    build job: 'Deploy_reactjs_app_to_Prod_env' , wait: false
+<<<<<<< HEAD
 					    echo "Deploying Application to Development server."
+=======
+					    echo "Deploying Application to Development server." 
+>>>>>>> master
 				    }
 			    }
 		    }
